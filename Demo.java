@@ -9,7 +9,7 @@ class Alarm extends JFrame implements WaterLevelDetector{
     JLabel label1;
     Alarm(){
         setSize(300,100);
-        setLocationRelativeTo(null);
+        setLocation(0,100);
         centerPanel=new JPanel();
         label1=new JLabel("",JLabel.CENTER);
         centerPanel.add(label1);
@@ -32,7 +32,7 @@ class Display extends JFrame implements WaterLevelDetector{
     JLabel label1;
     Display(){
         setSize(300,100);
-        setLocationRelativeTo(null);
+        setLocation(300,100);
         JPanel centerPanel=new JPanel();
         label1=new JLabel("",JLabel.CENTER);
         centerPanel.add(label1);
@@ -49,7 +49,7 @@ class Splitter extends JFrame implements WaterLevelDetector{
     JLabel label1;
     Splitter(){
         setSize(300,100);
-        setLocationRelativeTo(null);
+        setLocation(600,100);
         centerPanel=new JPanel();
         label1=new JLabel("",JLabel.CENTER);
         centerPanel.add(label1);
@@ -71,7 +71,7 @@ class  SmsSender extends JFrame implements WaterLevelDetector{
     JLabel label1;
     SmsSender(){
         setSize(300,100);
-        setLocationRelativeTo(null);
+        setLocation(900,100);
         JPanel centerPanel=new JPanel();
         label1=new JLabel("",JLabel.CENTER);
         centerPanel.add(label1);
@@ -85,7 +85,9 @@ class  SmsSender extends JFrame implements WaterLevelDetector{
 }
 class ControllRoom extends JFrame{
     JSlider slider;
-    private WaterLevelDetector[] devicesArray={new Alarm(),new Splitter(),new Display(),new SmsSender()};
+    JPanel bottomPanel;
+    JTextField field;
+    WaterLevelDetector[] devicesArray=new WaterLevelDetector[0];
     ControllRoom(){
         setSize(300,300);
         setTitle("Controll Room");
@@ -101,17 +103,20 @@ class ControllRoom extends JFrame{
         panel.add(slider);
         add("Center",panel);
         
+        bottomPanel=new JPanel();
+        field=new JTextField(20);
         
-        String x="0";
+        bottomPanel.add(field);
+        add("South",bottomPanel);
+        
+        
         slider.addChangeListener(event -> {
                 if( ! slider.getValueIsAdjusting()){
                     addWaterLevel(slider.getValue());
                 }
             
         });
-        JLabel label2=new JLabel(x);
-        add("South",label2);
-        
+
         setVisible(true);
         
     }
@@ -119,6 +124,23 @@ class ControllRoom extends JFrame{
         for(WaterLevelDetector device : devicesArray){
             device.update(waterLevel);
         }
+    }
+    public void extendArray(){
+        if(devicesArray.length==0){
+            WaterLevelDetector[] temp=new WaterLevelDetector[devicesArray.length+1];
+            devicesArray=temp;
+        }else if(devicesArray.length>0){
+            WaterLevelDetector[] temp=new WaterLevelDetector[devicesArray.length+1];
+            for(int i=0;i<devicesArray.length;i++){
+                temp[i]=devicesArray[i];
+            }
+           
+            devicesArray=temp;
+        }
+    }
+    public void addDevice(WaterLevelDetector device){
+        extendArray();
+        devicesArray[devicesArray.length-1]=device;
     }
 
     
@@ -128,5 +150,9 @@ class ControllRoom extends JFrame{
 class Demo{
     public static void main(String args[]){
         ControllRoom c1=new ControllRoom();
+        c1.addDevice(new Alarm());
+        c1.addDevice(new Splitter());
+        c1.addDevice(new Display());
+        c1.addDevice(new SmsSender());
     }
 }
