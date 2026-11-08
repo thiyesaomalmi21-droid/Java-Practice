@@ -7,9 +7,15 @@ interface WaterLevelDetector{
 class Alarm extends JFrame implements WaterLevelDetector{
     JPanel centerPanel;
     JLabel label1;
-    Alarm(){
+    private String id;
+    Alarm(String id){
+        this.id=id;
+        
         setSize(300,100);
         setLocation(0,100);
+        
+        setTitle("Alarm : "+id);
+        
         centerPanel=new JPanel();
         label1=new JLabel("",JLabel.CENTER);
         centerPanel.add(label1);
@@ -30,9 +36,14 @@ class Alarm extends JFrame implements WaterLevelDetector{
 }
 class Display extends JFrame implements WaterLevelDetector{
     JLabel label1;
-    Display(){
+    private String id;
+    Display(String id){
+        this.id=id;
         setSize(300,100);
         setLocation(300,100);
+        
+        setTitle("Display : "+id);
+        
         JPanel centerPanel=new JPanel();
         label1=new JLabel("",JLabel.CENTER);
         centerPanel.add(label1);
@@ -47,9 +58,14 @@ class Display extends JFrame implements WaterLevelDetector{
 class Splitter extends JFrame implements WaterLevelDetector{
     JPanel centerPanel;
     JLabel label1;
-    Splitter(){
+    private String id;
+    Splitter(String id){
+        this.id=id;
         setSize(300,100);
         setLocation(600,100);
+        
+        setTitle("Splitter : "+id);
+        
         centerPanel=new JPanel();
         label1=new JLabel("",JLabel.CENTER);
         centerPanel.add(label1);
@@ -69,9 +85,14 @@ class Splitter extends JFrame implements WaterLevelDetector{
 }
 class  SmsSender extends JFrame implements WaterLevelDetector{
     JLabel label1;
-    SmsSender(){
+    private String id;
+    SmsSender(String id){
+        this.id=id;
         setSize(300,100);
         setLocation(900,100);
+        
+        setTitle("SMS Sender : "+id);
+        
         JPanel centerPanel=new JPanel();
         label1=new JLabel("",JLabel.CENTER);
         centerPanel.add(label1);
@@ -118,7 +139,11 @@ class ControllRoom extends JFrame{
         bottomPanel.add(btnPanel);
         add("South",bottomPanel);
         
-        
+        btn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                detectingNewDevice(field.getText());
+            }
+        });
         slider.addChangeListener(event -> {
                 if( ! slider.getValueIsAdjusting()){
                     addWaterLevel(slider.getValue());
@@ -151,15 +176,30 @@ class ControllRoom extends JFrame{
         extendArray();
         devicesArray[devicesArray.length-1]=device;
     }
+    public void detectingNewDevice(String id){
+        String firstLetter=id.substring(0,1);
+        if(firstLetter.equals("A")){
+            addDevice(new Alarm(id));
+        }else if(firstLetter.equals("D")){
+            addDevice(new Display(id));
+        }else if(firstLetter.equals("S")){
+            String secondLetter=id.substring(1,2);
+            if(secondLetter.equals("M")){
+                addDevice(new SmsSender(id));
+            }else if(secondLetter.equals("P")){
+                addDevice(new Splitter(id));
+            }
+        }
+    } 
 
 }
 
 class Demo{
     public static void main(String args[]){
         ControllRoom c1=new ControllRoom();
-        c1.addDevice(new Alarm());
-        c1.addDevice(new Splitter());
-        c1.addDevice(new Display());
-        c1.addDevice(new SmsSender());
+        c1.addDevice(new Alarm("A001"));
+        c1.addDevice(new Splitter("SP001"));
+        c1.addDevice(new Display("D001"));
+        c1.addDevice(new SmsSender("SM001"));
     }
 }
