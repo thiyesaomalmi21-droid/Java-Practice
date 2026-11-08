@@ -1,8 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+interface WaterLevelDetector{
+    public void update(int waterLevel);
+}
+class Alarm implements WaterLevelDetector{
+    public void update(int waterLevel){
+        
+    }
+}
+class Display implements WaterLevelDetector{
+    public void update(int waterLevel){
+        
+    }
+}
+class Splitter implements WaterLevelDetector{
+    public void update(int waterLevel){
+        
+    }
+}
+class  SmsSender implements WaterLevelDetector{
+    public void update(int waterLevel){
+        
+    }
+}
 class ControllRoom extends JFrame{
     JSlider slider;
+    private WaterLevelDetector[] devicesArray={new Alarm(),new Splitter(),new Display(),new SmsSender()};
     ControllRoom(){
         setSize(300,300);
         setTitle("Controll Room");
@@ -33,8 +57,11 @@ class ControllRoom extends JFrame{
         
     }
     public void addWaterLevel(int waterLevel){
-        System.out.println(waterLevel);
+        for(WaterLevelDetector device : devicesArray){
+            device.update(waterLevel);
+        }
     }
+
     
     
 }
