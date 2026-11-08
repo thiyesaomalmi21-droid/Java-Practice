@@ -87,26 +87,35 @@ class ControllRoom extends JFrame{
     JSlider slider;
     JPanel bottomPanel;
     JTextField field;
+    JButton btn;
     WaterLevelDetector[] devicesArray=new WaterLevelDetector[0];
     ControllRoom(){
-        setSize(300,300);
+        setSize(400,400);
         setTitle("Controll Room");
         setLocationRelativeTo(null);
         JLabel label1=new JLabel("WaterLevel Detector",JLabel.CENTER);
         add("North",label1);
         JPanel panel=new JPanel();
         slider=new JSlider(JSlider.VERTICAL,0,100,50);
-        slider.setMajorTickSpacing(20);
+        slider.setMajorTickSpacing(10);
         slider.setMinorTickSpacing(5);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
         panel.add(slider);
         add("Center",panel);
         
-        bottomPanel=new JPanel();
-        field=new JTextField(20);
+        bottomPanel=new JPanel(new GridLayout(1,2));
+        JPanel btnPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel textPanel=new JPanel(new FlowLayout());
         
-        bottomPanel.add(field);
+        field=new JTextField(13);
+        field.setFont(new Font("",Font.BOLD,15));
+        textPanel.add(field);
+        btn=new JButton("Add device (ID)");
+        btnPanel.add(btn);
+        
+        bottomPanel.add(textPanel);
+        bottomPanel.add(btnPanel);
         add("South",bottomPanel);
         
         
@@ -143,8 +152,6 @@ class ControllRoom extends JFrame{
         devicesArray[devicesArray.length-1]=device;
     }
 
-    
-    
 }
 
 class Demo{
