@@ -4,24 +4,83 @@ import java.awt.event.*;
 interface WaterLevelDetector{
     public void update(int waterLevel);
 }
-class Alarm implements WaterLevelDetector{
+class Alarm extends JFrame implements WaterLevelDetector{
+    JPanel centerPanel;
+    JLabel label1;
+    Alarm(){
+        setSize(300,100);
+        setLocationRelativeTo(null);
+        centerPanel=new JPanel();
+        label1=new JLabel("",JLabel.CENTER);
+        centerPanel.add(label1);
+        add("Center",centerPanel);
+        setVisible(true);
+        
+    }
     public void update(int waterLevel){
+        if(waterLevel >=50){
+            label1.setText("Alarm On");
+            centerPanel.setBackground(Color.RED);
+        }else if(waterLevel<50){
+            label1.setText("Alarm OFF");
+            centerPanel.setBackground(Color.GREEN);
+        }
         
     }
 }
-class Display implements WaterLevelDetector{
-    public void update(int waterLevel){
+class Display extends JFrame implements WaterLevelDetector{
+    JLabel label1;
+    Display(){
+        setSize(300,100);
+        setLocationRelativeTo(null);
+        JPanel centerPanel=new JPanel();
+        label1=new JLabel("",JLabel.CENTER);
+        centerPanel.add(label1);
+        add("Center",centerPanel);
+        setVisible(true);
         
     }
-}
-class Splitter implements WaterLevelDetector{
     public void update(int waterLevel){
-        
+        label1.setText("Current Water Level : "+waterLevel);
     }
 }
-class  SmsSender implements WaterLevelDetector{
-    public void update(int waterLevel){
+class Splitter extends JFrame implements WaterLevelDetector{
+    JPanel centerPanel;
+    JLabel label1;
+    Splitter(){
+        setSize(300,100);
+        setLocationRelativeTo(null);
+        centerPanel=new JPanel();
+        label1=new JLabel("",JLabel.CENTER);
+        centerPanel.add(label1);
+        add("Center",centerPanel);
+        setVisible(true);
         
+    }
+    public void update(int waterLevel){
+        if(waterLevel >=50){
+            label1.setText("Splitter On");
+            centerPanel.setBackground(Color.RED);
+        }else if(waterLevel<50){
+            label1.setText("Splitter OFF");
+            centerPanel.setBackground(Color.GREEN);
+        }
+    }
+}
+class  SmsSender extends JFrame implements WaterLevelDetector{
+    JLabel label1;
+    SmsSender(){
+        setSize(300,100);
+        setLocationRelativeTo(null);
+        JPanel centerPanel=new JPanel();
+        label1=new JLabel("",JLabel.CENTER);
+        centerPanel.add(label1);
+        add("Center",centerPanel);
+        setVisible(true);
+        
+    }
+    public void update(int waterLevel){
+        label1.setText("Sending SMS : "+waterLevel);
     }
 }
 class ControllRoom extends JFrame{
