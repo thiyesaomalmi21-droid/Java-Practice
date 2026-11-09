@@ -1,12 +1,13 @@
-interface Car{
-    public void accellerate();
+interface Vehicle{
+    public void park();
 }
 class Practice{
     public static void main(String args[]){
-        Car c1=()->{
-            System.out.println("80kmh-1");
+        Vehicle v1=()->{
+            System.out.println("Park 1");
+            System.out.println("Park 1");
+            System.out.println("Park 1");
         };
-        c1.accellerate();
+        v1.park();
     }
-    
 }
