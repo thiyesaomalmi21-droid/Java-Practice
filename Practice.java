@@ -1,16 +1,16 @@
-interface Vehicle{
-    public void park();//a abstract method(The only method type that a interface can have) 
+interface Animal{
+    public void eat();
 }
 
 class Practice{
     public static void main(String args[]){
-        Vehicle v1=new Vehicle(){
-            public void park(){
-                System.out.println("Running the anonymous inner");
-            }
+        Animal a1=new Animal(){
+            public void eat(){
+                    System.out.println("Dog Eat");
+            };
         };
         
-        v1.park();
+        a1.eat();
     }
     
 }
