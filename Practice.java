@@ -1,16 +1,21 @@
-interface Animal{
-    public void eat();
+interface Lion{
+    public void roar();
 }
-
 class Practice{
     public static void main(String args[]){
-        Animal a1=new Animal(){
-            public void eat(){
-                    System.out.println("Dog Eat");
-            };
+        Lion l1=new Lion(){
+            public void roar(){
+                System.out.println("First ROARRRRRR!");
+            }
         };
         
-        a1.eat();
+        l1.roar();
+        
+        Lion l2=()->{
+                
+                System.out.println("Second ROARRRRRR!");
+        };
+        
+        l2.roar();
     }
-    
 }
