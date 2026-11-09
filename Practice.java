@@ -1,21 +1,12 @@
-interface Lion{
-    public void roar();
+interface Car{
+    public void accellerate();
 }
 class Practice{
     public static void main(String args[]){
-        Lion l1=new Lion(){
-            public void roar(){
-                System.out.println("First ROARRRRRR!");
-            }
+        Car c1=()->{
+            System.out.println("80kmh-1");
         };
-        
-        l1.roar();
-        
-        Lion l2=()->{
-                
-                System.out.println("Second ROARRRRRR!");
-        };
-        
-        l2.roar();
+        c1.accellerate();
     }
+    
 }
