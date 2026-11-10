@@ -1,12 +1,15 @@
 interface Car{
-    public void park(int locationID,String name);
+    public boolean park();
 }
 class Practice{
     public static void main(String args[]){
-        Car c1=(locationID,name)->{
-            System.out.println(name+" - Car Park "+locationID);
-            
+        Car c1=()->{
+            return true;
         };
-        c1.park(1001,"Stuards");
+        
+        System.out.println(c1.park());
+        
+        Car c2=()->true;
+        System.out.println(c1.park());
     }
 }
