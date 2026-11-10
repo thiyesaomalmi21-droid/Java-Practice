@@ -1,11 +1,12 @@
-interface Vehicle{
-    public void park(int id);
+interface Car{
+   public void park(); 
 }
-class Practice {
+class Practice{
     public static void main(String args[]){
-        Vehicle v1=(int id)->{
-                System.out.println("Car Park id : "+id);
-        }; 
-        v1.park(1001);
+        Car c1=()->{
+            System.out.println("Car Parking...");
+        };
+        
+        c1.park();
     }
 }
